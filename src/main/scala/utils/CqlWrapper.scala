@@ -11,7 +11,7 @@ object CqlWrapper {
   def adduser(cqlCommand: String): ResultSet = {
     cassandraSession.execute(cqlCommand)
   }
-  def extractUser(cqlCommand: String) : ResultSet = {
-    cassandraSession.execute(cqlCommand)
+  def extractUser(cqlCommand: String) : Option[Row] = {
+    Option(cassandraSession.execute(cqlCommand).one())
   }
 }

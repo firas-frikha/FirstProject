@@ -11,12 +11,12 @@ import scala.concurrent.Future
 object LoginService {
   def verifyCredentials(credentials: Credentials): Future[AuthenticationMessage] = {
     val cqlCommand = s""" SELECT * FROM configuration.credentials where email= '${credentials.email}' """
-    val extracted_line = extractUser(cqlCommand).one()
+    val extracted_line = extractUser(cqlCommand)
     val return_message =
-      if (extracted_line != null)
+      if (extracted_line.isDefined)
       {
-        val password = extracted_line.getString("password")
-        val email = extracted_line.getString("email")
+        val password = extracted_line.get.getString("password")
+        val email = extracted_line.get.getString("email")
         if (password == credentials.password && email == credentials.email)
         {
           val newToken = Jwt.encode("""{"firstname":"firas", "lastname":"firas"}""", "secretKey", JwtAlgorithm.HS256)
@@ -24,7 +24,7 @@ object LoginService {
           AuthenticationMessage(true, Some(message), Some(newToken))
         }
         else
-          AuthenticationMessage(false, None, None)
+          AuthenticationMessage(false, Some("Wrong Credentials"), None)
       }
       else {
         val message = "email does not exist"
