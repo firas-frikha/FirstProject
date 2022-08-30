@@ -3,6 +3,7 @@ name := "MyFirstProject"
 version := "0.1"
 
 scalaVersion := "2.13.8"
+enablePlugins(PackPlugin)
 
 val akkaActorsVersion = "2.6.16"
 val akkaStreamsVersion = "2.6.16"

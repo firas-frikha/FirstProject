@@ -16,7 +16,7 @@ object Server extends App {
   val host = "0.0.0.0"
   val port = 8080
 
-  val routes = WelcomeRoutes.welcomeMessage ~ LoginRoutes.login ~ UserRoutes.addNewUserRoute
+  val routes = WelcomeRoutes.welcomeMessage ~ LoginRoutes.login ~ UserRoutes.addNewUserRoute ~ MusicRoutes.addNewTitleRoute
   val binding = Http().newServerAt(host, port).bind(routes)
 
   binding.onComplete {
