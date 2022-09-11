@@ -2,7 +2,7 @@ package routes
 
 import Models.Credentials
 import akka.http.scaladsl.model.{StatusCode, StatusCodes}
-import akka.http.scaladsl.model.headers.HttpCookie
+import akka.http.scaladsl.model.headers.{HttpCookie, RawHeader}
 
 import scala.util.{Failure, Success}
 import akka.http.scaladsl.server.Directives._
@@ -19,7 +19,7 @@ object LoginRoutes extends CommonMarshaller {
           onComplete(verifyCredentials(creds)) {
             case Success(authentificationMessage) => authentificationMessage.authenticated match {
               case true => {
-                setCookie(HttpCookie("Authorization",authentificationMessage.token.get)) {
+                respondWithHeader(RawHeader("Access-Token",authentificationMessage.token.get)) {
                   complete(StatusCodes.OK)
                 }
               }

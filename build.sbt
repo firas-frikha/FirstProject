@@ -15,6 +15,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
   "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
   "com.datastax.cassandra" % "cassandra-driver-core" % "3.5.1",
-  "com.github.jwt-scala" %% "jwt-core" % "9.0.6"
+
+  //JWT: token
+  "com.pauldijou" %% "jwt-spray-json" % "5.0.0"
 
 )

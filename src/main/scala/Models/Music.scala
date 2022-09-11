@@ -7,13 +7,15 @@ case class Music(
                 name: String,
                 Author: String,
                 Album: String,
-                ){
+                )
+
+object Music{
   def parseEntity(row: Row):Music ={
     Music(
-      row.getInt(id),
-      row.getString(name),
-      row.getString(Author),
-      row.getString(Album)
+      row.getInt("id"),
+      row.getString("name"),
+      row.getString("Author"),
+      row.getString("Album")
     )
   }
 }
